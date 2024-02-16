@@ -38,4 +38,7 @@ describe('calculate shopping cart', () => {
         expect(calculateShoppingCart([BOOK_1, BOOK_1, BOOK_3, BOOK_3, BOOK_5])).toEqual(34);
     })
 
+    test('The amount cart must be 51.20€ when it contains 2 pairs of 4 different books', () => {
+        expect(calculateShoppingCart([BOOK_1, BOOK_2, BOOK_3, BOOK_4, BOOK_1, BOOK_2, BOOK_3, BOOK_5])).toEqual(51.2);
+    })
 })
