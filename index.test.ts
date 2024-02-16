@@ -18,8 +18,19 @@ describe('calculate shopping cart', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_4, BOOK_4, BOOK_4])).toEqual(32)
     })
 
-    test('it should return a total price with 5% discount when 2 different books', () => {
+    test('it should apply 5% discount when 2 different books', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_2])).toEqual(15.2);
         expect(calculateShoppingCart([BOOK_1, BOOK_5])).toEqual(15.2);
+    })
+
+    test('it should apply 10% discount when 3 different books', () => {
+        expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1])).toEqual(21.6);
+        expect(calculateShoppingCart([BOOK_2, BOOK_3, BOOK_5])).toEqual(21.6);
+    })
+    test('it should apply 20% discount when 4 different books', () => {
+        expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1, BOOK_3])).toEqual(25.6);
+    })
+    test('it should apply 25% discount when 5 different books', () => {
+        expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1, BOOK_3, BOOK_5])).toEqual(30);
     })
 })
