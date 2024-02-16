@@ -15,10 +15,6 @@ const discounts: Record<number, number> = {
 }
 
 export function calculateShoppingCart(books: Book[]): number {
-    if(!books.length) {
-        return 0
-    }
-
     const uniqueBooks = getUniqueBooksCount(books)
     const discount = getDiscount(uniqueBooks)
     return books.length * standardPrice * discount
