@@ -22,17 +22,21 @@ export function calculateShoppingCart(books: Book[]): number {
     }
     const groupeByBooks = countGroupeByBooks(books);
 
-    return calculateTotalDiscount(groupeByBooks)
+    return calculateDiscountedPrices(groupeByBooks).reduce(sumTotalWithDiscounts)
 }
 
-function calculateTotalDiscount(groupeByBooks: BookQuantities) {
+function calculateDiscountedPrices(groupeByBooks: BookQuantities) {
     const maxDiscountCycles = findMaxDiscountCycles(groupeByBooks);
 
     return Array.from({ length: maxDiscountCycles }, (_, index) => index)
         .map(_ => decrementBookQuantities(groupeByBooks))
-        .map(applyDiscount)
-        .reduce((acc, currentValue) => acc + currentValue, 0)
+        .map(calculatePriceWithDiscount)
 }
+
+function sumTotalWithDiscounts(acc: number, currentValue: number): number {
+    return acc + currentValue;
+}
+
 function findMaxDiscountCycles(groupeByBooks: BookQuantities): number {
     const quantities = Object.values(groupeByBooks);
     const uniqueBooks = Object.keys(groupeByBooks).length;
@@ -42,7 +46,7 @@ function findMaxDiscountCycles(groupeByBooks: BookQuantities): number {
     return Math.max(...quantities);
 }
 
-function applyDiscount(quantity: number) {
+function calculatePriceWithDiscount(quantity: number) {
     const discount = getDiscount(quantity)
     return (quantity * standardPrice * discount)
 }
