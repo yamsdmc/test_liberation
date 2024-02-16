@@ -15,10 +15,17 @@ const discounts: Record<number, number> = {
 }
 
 export function calculateShoppingCart(books: Book[]): number {
+    if(books.length === 0) {
+        return 0;
+    }
     const groupeByBooks = countGroupeByBooks(books);
 
-    const uniqueBooks = getUniqueBooksCount(books)
-    const discount = getDiscount(uniqueBooks)
+    const percentage = Object.keys(groupeByBooks).map((book: string) => {
+        return decrementBookQuantities(groupeByBooks)
+    }).map(getDiscount).reduce((acc, value) => acc * value)
+
+    const discount = Math.floor(percentage * 100) / 100
+
     return books.length * standardPrice * discount
 }
 
@@ -27,9 +34,6 @@ function getDiscount(uniqueBookNumber: number) {
     return discounts[uniqueBookNumber] || NO_DISCOUNT
 }
 
-function getUniqueBooksCount(books: Book[]): number {
-    return new Set(books).size
-}
 
 function countGroupeByBooks(books: Book[]) {
     return books.reduce((acc: Record<Book, number>, book) => {
@@ -38,3 +42,13 @@ function countGroupeByBooks(books: Book[]) {
     }, {});
 }
 
+const decrementBookQuantities = (books: Record<Book, number>): number => {
+    let count = 0;
+    Object.keys(books).forEach(book => {
+        if(books[book] > 0) {
+            books[book] = books[book] - 1
+            count++;
+        }
+    })
+    return count
+}
