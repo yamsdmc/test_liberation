@@ -19,12 +19,16 @@ export function calculateShoppingCart(books: Book[]): number {
         return 0
     }
 
-    const uniqueBooks = new Set(books);
-    const discount = getDiscount(uniqueBooks.size)
+    const uniqueBooks = getUniqueBooksCount(books)
+    const discount = getDiscount(uniqueBooks)
     return books.length * standardPrice * discount
 }
 
 function getDiscount(uniqueBookNumber: number) {
     return discounts[uniqueBookNumber] || 1
+}
+
+function getUniqueBooksCount(books: Book[]): number {
+    return new Set(books).size
 }
 
