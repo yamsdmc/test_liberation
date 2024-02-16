@@ -2,16 +2,16 @@ export type Book = string
 
 const standardPrice = 8;
 
-const FIVE_PERCENT = 0.95
-const TEN_PERCENT = 0.90
-const TWENTY_PERCENT = 0.80
-const TWENTYFIVE_PERCENT = 0.75
+const FIVE_PERCENT_COEFFICIENT = 0.95;
+const TEN_PERCENT_COEFFICIENT = 0.90;
+const TWENTY_PERCENT_COEFFICIENT = 0.80;
+const TWENTYFIVE_PERCENT_COEFFICIENT = 0.75;
 
 const discounts: Record<number, number> = {
-    2: FIVE_PERCENT,
-    3: TEN_PERCENT,
-    4: TWENTY_PERCENT,
-    5: TWENTYFIVE_PERCENT
+    2: FIVE_PERCENT_COEFFICIENT,
+    3: TEN_PERCENT_COEFFICIENT,
+    4: TWENTY_PERCENT_COEFFICIENT,
+    5: TWENTYFIVE_PERCENT_COEFFICIENT
 }
 
 export function calculateShoppingCart(books: Book[]): number {
@@ -21,7 +21,8 @@ export function calculateShoppingCart(books: Book[]): number {
 }
 
 function getDiscount(uniqueBookNumber: number) {
-    return discounts[uniqueBookNumber] || 1
+    const NO_DISCOUNT = 1;
+    return discounts[uniqueBookNumber] || NO_DISCOUNT
 }
 
 function getUniqueBooksCount(books: Book[]): number {

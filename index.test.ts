@@ -3,34 +3,35 @@ import {calculateShoppingCart} from "./index";
 import {BOOK_1, BOOK_2, BOOK_3, BOOK_4, BOOK_5, EmptyShoppingCard} from "./data";
 
 describe('calculate shopping cart', () => {
-    test('it should return a total price of 0 for an empty cart', () => {
+    test('the amount cart must be 0€ when it empty', () => {
         expect(calculateShoppingCart(EmptyShoppingCard)).toEqual(0)
     });
 
-    test('it should return a total price of 8 EUR for a cart with a single book', () => {
+    test('the amount cart must be 8€ when it contain one book', () => {
         expect(calculateShoppingCart([BOOK_1])).toEqual(8)
         expect(calculateShoppingCart([BOOK_2])).toEqual(8)
     })
 
-    test('it should not apply discounts for multiple copies of the same book', () => {
+    test('the cart should not apply discounts for multiple copies of the same book', () => {
         expect(calculateShoppingCart([BOOK_1, BOOK_1])).toEqual(16)
         expect(calculateShoppingCart([BOOK_2, BOOK_2])).toEqual(16)
         expect(calculateShoppingCart([BOOK_4, BOOK_4, BOOK_4, BOOK_4])).toEqual(32)
     })
 
-    test('it should apply 5% discount when 2 different books', () => {
+    test('the cart must be discounted by 5% when it contains 2 different books', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_2])).toEqual(15.2);
         expect(calculateShoppingCart([BOOK_1, BOOK_5])).toEqual(15.2);
     })
 
-    test('it should apply 10% discount when 3 different books', () => {
+    test('The cart must be discounted by 10% when it contains 3 different books.', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1])).toEqual(21.6);
         expect(calculateShoppingCart([BOOK_2, BOOK_3, BOOK_5])).toEqual(21.6);
     })
-    test('it should apply 20% discount when 4 different books', () => {
+    test('The cart must be discounted by 20% when it contains 4 different books.', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1, BOOK_3])).toEqual(25.6);
     })
-    test('it should apply 25% discount when 5 different books', () => {
+    test('The cart must be discounted by 25% when it contains 5 different books', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1, BOOK_3, BOOK_5])).toEqual(30);
     })
+
 })
