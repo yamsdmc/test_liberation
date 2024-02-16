@@ -5,5 +5,5 @@ export function calculateShoppingCart(books: Book[]): number {
     if(!books.length) {
         return 0
     }
-    return 8
+    return books.length * 8
 }
