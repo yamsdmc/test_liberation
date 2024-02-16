@@ -34,11 +34,11 @@ describe('calculate shopping cart', () => {
         expect(calculateShoppingCart([BOOK_4, BOOK_2, BOOK_1, BOOK_3, BOOK_5])).toEqual(30);
     })
 
-    test('The amount cart must be 34€ when it contains 1 pair of 2 different and 1 pair of 3 different books', () => {
-        expect(calculateShoppingCart([BOOK_1, BOOK_1, BOOK_3, BOOK_3, BOOK_5])).toEqual(34);
+    test('The amount cart must be 23.2€ when it contains 1 pair of 2 different and 1 book same with pair', () => {
+        expect(calculateShoppingCart([BOOK_1, BOOK_1, BOOK_3])).toEqual(23.2);
     })
 
-    test('The amount cart must be 51.20€ when it contains 2 pairs of 4 different books', () => {
-        expect(calculateShoppingCart([BOOK_1, BOOK_2, BOOK_3, BOOK_4, BOOK_1, BOOK_2, BOOK_3, BOOK_5])).toEqual(51.2);
+    test('The amount cart must be 36.8€ when it contains 1 pair of 2 different and 1 pair of 3 different books', () => {
+        expect(calculateShoppingCart([BOOK_1, BOOK_1, BOOK_3, BOOK_3, BOOK_5])).toEqual(36.8);
     })
 })

@@ -22,19 +22,29 @@ export function calculateShoppingCart(books: Book[]): number {
     }
     const groupeByBooks = countGroupeByBooks(books);
 
-    const discount = calculateTotalDiscount(groupeByBooks);
-
-    return books.length * standardPrice * roundDiscount(discount)
+    return calculateTotalDiscount(groupeByBooks)
 }
 
-function roundDiscount(price: number): number {
-    return Math.floor(price * 100) / 100;
-}
 function calculateTotalDiscount(groupeByBooks: BookQuantities) {
-    return Object.keys(groupeByBooks)
+    const maxDiscountCycles = findMaxDiscountCycles(groupeByBooks);
+
+    return Array.from({ length: maxDiscountCycles }, (_, index) => index)
         .map(_ => decrementBookQuantities(groupeByBooks))
-        .map(getDiscount)
-        .reduce((acc, currentValue) => acc * currentValue, 1);
+        .map(applyDiscount)
+        .reduce((acc, currentValue) => acc + currentValue, 0)
+}
+function findMaxDiscountCycles(groupeByBooks: BookQuantities): number {
+    const quantities = Object.values(groupeByBooks);
+    const uniqueBooks = Object.keys(groupeByBooks).length;
+    if(uniqueBooks === 1) {
+        return quantities[0];
+    }
+    return Math.max(...quantities);
+}
+
+function applyDiscount(quantity: number) {
+    const discount = getDiscount(quantity)
+    return (quantity * standardPrice * discount)
 }
 function getDiscount(uniqueBookNumber: number) {
     const NO_DISCOUNT = 1;
