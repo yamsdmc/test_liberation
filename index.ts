@@ -1,7 +1,4 @@
-export type Book = {
-    title: string,
-    price: number
-}
+export type Book = string
 
 
 export function calculateShoppingCart(books: Book[]): number {
